@@ -1,0 +1,6 @@
+[user]
+	name = AgentBase Bot
+	email = bot@agentbase.dev
+
+[credential]
+	helper = store

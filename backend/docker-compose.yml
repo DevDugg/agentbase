@@ -1,0 +1,106 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: agentbase-redis
+    ports:
+      - '6379:6379'
+    networks:
+      - agent-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - redis-data:/data
+
+  agent-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agentbase-backend
+    environment:
+      - AGENT_ID=backend
+      - AGENT_CONFIG_PATH=examples/dev-workforce/agent-backend
+      - ANTHROPIC_API_KEY=${BACKEND_API_KEY}
+      - DISCORD_BOT_TOKEN=${BACKEND_DISCORD_TOKEN}
+      - REDIS_URL=redis://redis:6379
+      - WORKING_DIRECTORY=/agent-workspace
+    volumes:
+      - backend-workspace:/agent-workspace
+    networks:
+      - agent-network
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  agent-devops:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agentbase-devops
+    environment:
+      - AGENT_ID=devops
+      - AGENT_CONFIG_PATH=examples/dev-workforce/agent-devops
+      - ANTHROPIC_API_KEY=${DEVOPS_API_KEY}
+      - DISCORD_BOT_TOKEN=${DEVOPS_DISCORD_TOKEN}
+      - REDIS_URL=redis://redis:6379
+      - WORKING_DIRECTORY=/agent-workspace
+    volumes:
+      - devops-workspace:/agent-workspace
+    networks:
+      - agent-network
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  agent-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agentbase-frontend
+    environment:
+      - AGENT_ID=frontend
+      - AGENT_CONFIG_PATH=examples/dev-workforce/agent-frontend
+      - ANTHROPIC_API_KEY=${FRONTEND_API_KEY}
+      - DISCORD_BOT_TOKEN=${FRONTEND_DISCORD_TOKEN}
+      - REDIS_URL=redis://redis:6379
+      - WORKING_DIRECTORY=/agent-workspace
+    volumes:
+      - frontend-workspace:/agent-workspace
+    networks:
+      - agent-network
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  metrics-api:
+    build:
+      context: .
+      dockerfile: Dockerfile.metrics
+    container_name: agentbase-metrics
+    ports:
+      - '3001:3001'
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - METRICS_PORT=3001
+      - CORS_ORIGIN=*
+    networks:
+      - agent-network
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  backend-workspace:
+  devops-workspace:
+  frontend-workspace:
+
+networks:
+  agent-network:
+    driver: bridge

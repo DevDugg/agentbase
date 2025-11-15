@@ -1,0 +1,58 @@
+version: "1.0"
+
+redis:
+  url: "redis://redis:6379"
+  port: 6379
+
+metrics:
+  port: 3001
+  enabled: true
+
+agents:
+  - name: "backend"
+    config_path: "examples/dev-workforce/agent-backend"
+    env:
+      ANTHROPIC_API_KEY: "${BACKEND_API_KEY}"
+      DISCORD_BOT_TOKEN: "${BACKEND_DISCORD_TOKEN}"
+    volumes:
+      workspace: "/agent-workspace"
+      sessions: "/agent-sessions"
+    description: "Senior Backend Engineer - Node.js, TypeScript, APIs, databases"
+    skills:
+      - "API Design"
+      - "Database Optimization"
+      - "Testing Strategy"
+      - "Performance Tuning"
+      - "Security Best Practices"
+
+  - name: "devops"
+    config_path: "examples/dev-workforce/agent-devops"
+    env:
+      ANTHROPIC_API_KEY: "${DEVOPS_API_KEY}"
+      DISCORD_BOT_TOKEN: "${DEVOPS_DISCORD_TOKEN}"
+    volumes:
+      workspace: "/agent-workspace"
+      sessions: "/agent-sessions"
+    description: "Senior DevOps Engineer - Kubernetes, Docker, CI/CD, cloud infrastructure"
+    skills:
+      - "Kubernetes Deployment"
+      - "CI/CD Pipeline Design"
+      - "Monitoring & Observability"
+      - "Infrastructure as Code"
+      - "Security & Compliance"
+
+  - name: "frontend"
+    config_path: "examples/dev-workforce/agent-frontend"
+    env:
+      ANTHROPIC_API_KEY: "${FRONTEND_API_KEY}"
+      DISCORD_BOT_TOKEN: "${FRONTEND_DISCORD_TOKEN}"
+    volumes:
+      workspace: "/agent-workspace"
+      sessions: "/agent-sessions"
+    description: "Senior Frontend Engineer - React, TypeScript, UI/UX, performance"
+    skills:
+      - "React Component Development"
+      - "Performance Optimization"
+      - "Accessibility (a11y)"
+      - "State Management"
+      - "Testing & Quality"

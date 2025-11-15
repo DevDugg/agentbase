@@ -1,0 +1,30 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY tsconfig.json ./
+
+# Install dependencies
+RUN npm ci --only=production
+
+# Copy source code
+COPY src/metrics-api.ts ./src/
+
+# Build TypeScript
+RUN npm install -D typescript @types/node && \
+    npm run build && \
+    npm prune --production
+
+# Switch to non-root user
+USER node
+
+# Environment variables will be set by docker-compose
+ENV NODE_ENV=production
+
+# Expose metrics API port
+EXPOSE 3001
+
+# Start metrics API
+CMD ["node", "dist/metrics-api.js"]

@@ -1,0 +1,35 @@
+{
+  "name": "agentbase-backend",
+  "version": "1.0.0",
+  "description": "Multi-agent Claude Discord infrastructure backend",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc && node dist/index.js",
+    "start": "node dist/index.js",
+    "metrics": "node dist/metrics-api.js"
+  },
+  "keywords": ["claude", "discord", "agent", "redis"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
+    "discord.js": "^14.16.3",
+    "redis": "^4.7.0",
+    "express": "^4.21.1",
+    "cors": "^2.8.5",
+    "ws": "^8.18.0",
+    "js-yaml": "^4.1.0",
+    "dotenv": "^16.4.5",
+    "simple-git": "^3.27.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/express": "^5.0.0",
+    "@types/cors": "^2.8.17",
+    "@types/ws": "^8.5.13",
+    "@types/js-yaml": "^4.0.9",
+    "typescript": "^5.7.2"
+  }
+}

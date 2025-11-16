@@ -38,3 +38,5 @@ docker-compose.override.yml
 *.tmp
 .cache/
 temp/
+
+.git-credentials

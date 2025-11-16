@@ -1,5 +1,4 @@
-import React from 'react';
-import { Wifi, WifiOff } from 'lucide-react';
+import { Wifi, WifiOff } from "lucide-react";
 
 interface SystemHealthProps {
   isConnected: boolean;

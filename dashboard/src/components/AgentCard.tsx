@@ -1,13 +1,12 @@
-import React from 'react';
-import { AgentMetrics } from '../hooks/useMetrics';
-import { Power, Activity, Clock } from 'lucide-react';
+import { AgentMetrics } from "../hooks/useMetrics";
+import { Power, Activity, Clock } from "lucide-react";
 
 interface AgentCardProps {
   agent: AgentMetrics;
 }
 
 export function AgentCard({ agent }: AgentCardProps) {
-  const statusColor = agent.status === 'online' ? 'green' : 'red';
+  const statusColor = agent.status === "online" ? "green" : "red";
 
   return (
     <div className="agent-card">

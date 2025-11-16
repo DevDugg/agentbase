@@ -1,5 +1,4 @@
-import React from 'react';
-import { MetricCard } from './MetricCard';
+import { MetricCard } from "./MetricCard";
 
 interface MetricsOverviewProps {
   totalAgents: number;
@@ -16,7 +15,7 @@ export function MetricsOverview({
   completedToday,
   avgEfficiency,
   systemLoad,
-  errorRate
+  errorRate,
 }: MetricsOverviewProps) {
   return (
     <div className="metrics-overview">

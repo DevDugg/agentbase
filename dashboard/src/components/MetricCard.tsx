@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface MetricCardProps {
   title: string;
   value: string | number;

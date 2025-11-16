@@ -103,7 +103,8 @@
 .search-bar {
   display: flex;
   gap: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  position: relative;
 }
 
 .search-input-wrapper {
@@ -120,7 +121,7 @@
   flex: 1;
   border: none;
   outline: none;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 12px;
   background: transparent;
 }
@@ -132,7 +133,7 @@
   padding: 10px 20px;
   background: var(--bg-card);
   border: 2px solid var(--border-color);
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 11px;
   font-weight: bold;
   cursor: pointer;
@@ -141,6 +142,110 @@
 
 .toolbar-btn:hover {
   background: var(--border-color);
+}
+
+.toolbar-btn.active {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.toolbar-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.filter-control {
+  position: relative;
+}
+
+.filter-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 260px;
+  background: var(--bg-card);
+  border: 2px solid var(--border-color);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  z-index: 10;
+}
+
+.filter-section {
+  margin-bottom: 15px;
+}
+
+.filter-section:last-of-type {
+  margin-bottom: 0;
+}
+
+.filter-section-title {
+  font-size: 10px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  margin-bottom: 6px;
+}
+
+.filter-option:last-child {
+  margin-bottom: 0;
+}
+
+.filter-option input {
+  accent-color: var(--blue);
+}
+
+.filter-option.checkbox {
+  font-weight: bold;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.filter-action-btn {
+  flex: 1;
+  padding: 8px 12px;
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  font-weight: bold;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  cursor: pointer;
+}
+
+.filter-action-btn.primary {
+  border-color: var(--blue);
+  color: var(--bg-card);
+  background: var(--blue);
+}
+
+.filter-action-btn.secondary {
+  color: var(--text-secondary);
+}
+
+.toolbar-message {
+  text-align: right;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin-bottom: 25px;
+}
+
+.toolbar-message.success {
+  color: var(--green);
+}
+
+.toolbar-message.warning {
+  color: var(--red);
 }
 
 /* Agent Roster */
@@ -282,7 +387,7 @@
   padding: 10px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 10px;
   font-weight: bold;
   cursor: pointer;

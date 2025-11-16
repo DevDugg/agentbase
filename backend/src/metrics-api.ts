@@ -228,19 +228,31 @@ class MetricsAPI {
   private async getSystemStats(): Promise<any> {
     const metrics = await this.getAllMetrics();
     const totalTasks = metrics.agents.reduce((sum, agent) => sum + agent.tasksCompleted, 0);
+
     const avgCpu = metrics.agents.length > 0
       ? metrics.agents.reduce((sum, agent) => sum + agent.cpu, 0) / metrics.agents.length
       : 0;
+
     const avgMemory = metrics.agents.length > 0
       ? metrics.agents.reduce((sum, agent) => sum + agent.memory, 0) / metrics.agents.length
+      : 0;
+
+    const efficiency = metrics.totalAgents > 0
+      ? (metrics.activeAgents / metrics.totalAgents) * 100
+      : 0;
+
+    const errorRate = metrics.totalAgents > 0
+      ? ((metrics.totalAgents - metrics.activeAgents) / metrics.totalAgents) * 100
       : 0;
 
     return {
       totalAgents: metrics.totalAgents,
       activeAgents: metrics.activeAgents,
       totalTasksCompleted: totalTasks,
-      averageCpu: avgCpu.toFixed(2),
-      averageMemory: avgMemory.toFixed(2),
+      averageCpu: Number(avgCpu.toFixed(2)),
+      averageMemory: Number(avgMemory.toFixed(2)),
+      efficiency: Number(efficiency.toFixed(2)),
+      errorRate: Number(errorRate.toFixed(2)),
       timestamp: Date.now()
     };
   }

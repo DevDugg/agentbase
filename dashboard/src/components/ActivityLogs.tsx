@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Terminal } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { Terminal } from "lucide-react";
 
 interface Activity {
   agentId: string;
@@ -22,7 +22,7 @@ export function ActivityLogs({ activities, maxItems = 10 }: ActivityLogsProps) {
 
   const formatTime = (timestamp: number) => {
     const date = new Date(timestamp);
-    return date.toLocaleTimeString('en-US', { hour12: false });
+    return date.toLocaleTimeString("en-US", { hour12: false });
   };
 
   return (
@@ -38,9 +38,16 @@ export function ActivityLogs({ activities, maxItems = 10 }: ActivityLogsProps) {
           </div>
         ) : (
           displayActivities.map((activity, index) => (
-            <div key={`${activity.timestamp}-${index}`} className="activity-item">
-              <span className="activity-time">[{formatTime(activity.timestamp)}]</span>
-              <span className="activity-agent">{activity.agentId.toUpperCase()}</span>
+            <div
+              key={`${activity.timestamp}-${index}`}
+              className="activity-item"
+            >
+              <span className="activity-time">
+                [{formatTime(activity.timestamp)}]
+              </span>
+              <span className="activity-agent">
+                {activity.agentId.toUpperCase()}
+              </span>
               <span className="activity-action">{activity.action}</span>
               <span className="activity-content">{activity.content}</span>
             </div>
